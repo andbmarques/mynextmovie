@@ -8,14 +8,12 @@ import {
   ItemTitle,
 } from "./styles";
 
-export const Poster = ({ item, similar }) => {
+export const Poster = ({ item, similar, isMovie }) => {
   return (
     <>
       {item ? (
         <ItemContainerLink
-          href={
-            item.media_type === "movie" ? `/movie/${item.id}` : `/tv/${item.id}`
-          }
+          href={isMovie ? `/movie/${item.id}` : `/tv/${item.id}`}
           similar={similar}
         >
           <ItemRatingContainer similar={similar}>
@@ -27,10 +25,10 @@ export const Poster = ({ item, similar }) => {
               item.poster_path
             }`}
             similar={similar}
-            onError={ event => event.target.style.display = 'none' }
+            onError={(event) => (event.target.style.display = "none")}
           />
           <ItemTitle similar={similar}>
-            {item.media_type === "movie" ? item.title : item.name}
+            {isMovie ? item.title : item.name}
           </ItemTitle>
         </ItemContainerLink>
       ) : (

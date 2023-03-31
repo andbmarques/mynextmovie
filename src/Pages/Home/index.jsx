@@ -32,7 +32,7 @@ const Home = () => {
             {
                 trendingsData && trendingsData.results.map((item, index) => {
                     return (
-                        <Poster item={item} key={index} />
+                        <Poster item={item} key={index} isMovie={show === 'movie' ? true : false} />
                     )
                 })
             }

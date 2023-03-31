@@ -155,7 +155,7 @@ const ItemPage = () => {
                 similar.map((item, index) => {
                   if (index < 8)
                     return (
-                      <SimilarPosters item={item} key={index} similar={true} />
+                      <SimilarPosters item={item} key={index} similar={true} isMovie={isMovie} />
                     );
                 })}
             </PostersContainers>

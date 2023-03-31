@@ -26,7 +26,7 @@ const SearchPage = () => {
             {
                 responseData && responseData.map((item, index) => {
                     return (
-                        <Poster item={item} key={index} />
+                        <Poster item={item} key={index} isMovie={item.media_type === 'movie' ? true : false} />
                     )
                 })
             }
