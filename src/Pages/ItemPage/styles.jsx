@@ -122,11 +122,28 @@ export const EpisodesSpan = styled.div`
 
   @media screen and (min-width: 768px) {
     justify-content: flex-start;
+    flex-direction: column;
     gap: 1rem;
 }
 `;
 
 export const EpisodesTextContainer = styled.div`
   display: flex;
+  gap: 0.3rem;
+`;
+
+export const SimilarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  margin-top: 2rem;
+  width: 95%;
+  gap: 1rem;
+`;
+
+export const PostersContainers = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 0.3rem;
 `;

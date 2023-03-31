@@ -30,6 +30,11 @@ export const SearchButton = styled.a`
     cursor: pointer;    
     text-decoration: none;
     color: black;
+    transition: all 0.2s ease;
+
+    &:hover {
+        opacity: 0.8;
+    }
 `;
 
 export const SearchButtonIcon = styled(MagnifyingGlass)`

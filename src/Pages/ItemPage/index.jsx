@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import api from "../../api";
 import { formatDate } from "../../Utils/formatDate";
+import { Poster as SimilarPosters } from "../../Components/Poster";
 import {
   Backdrop,
   BackdropContainer,
@@ -23,6 +24,8 @@ import {
   EpisodesInfoContainer,
   EpisodesSpan,
   EpisodesTextContainer,
+  SimilarContainer,
+  PostersContainers,
 } from "./styles";
 
 const ItemPage = () => {
@@ -33,6 +36,7 @@ const ItemPage = () => {
 
   const [itemData, setItemData] = useState();
   const [videos, setVideos] = useState();
+  const [similar, setSimilar] = useState();
 
   useEffect(() => {
     api
@@ -43,7 +47,6 @@ const ItemPage = () => {
       )
       .then((result) => {
         if (result) setItemData(result.data);
-        console.log(result.data);
       });
   }, []);
 
@@ -59,6 +62,20 @@ const ItemPage = () => {
       });
   }, []);
 
+  useEffect(() => {
+    api
+      .get(
+        `/${isMovie ? "movie" : "tv"}/${id}/similar?api_key=${
+          import.meta.env.VITE_API_KEY
+        }`
+      )
+
+      .then((result) => {
+        setSimilar(result.data.results);
+        console.log(result.data.results);
+      });
+  }, []);
+
   return (
     <>
       {itemData && (
@@ -67,11 +84,13 @@ const ItemPage = () => {
             <Title>{isMovie ? itemData.title : itemData.name}</Title>
             <Poster
               src={`https://image.tmdb.org/t/p/w500/${itemData.poster_path}`}
+              onError={(event) => (event.target.style.display = "none")}
             />
           </InfosContainer>
           <BackdropContainer>
             <Backdrop
               src={`https://image.tmdb.org/t/p/w1280/${itemData.backdrop_path}`}
+              onError={(event) => (event.target.style.display = "none")}
             />
           </BackdropContainer>
           <OtherInfosContainer>
@@ -113,14 +132,14 @@ const ItemPage = () => {
                   <p>{itemData.number_of_episodes}</p>
                 </EpisodesTextContainer>
                 <EpisodesTextContainer>
-                  <SubText>First Air Date</SubText>
-                  <p>{formatDate(itemData.first_air_date)}</p>
+                  <SubText>Number of Seasons: </SubText>
+                  <p>{itemData.number_of_seasons}</p>
                 </EpisodesTextContainer>
               </EpisodesSpan>
               <EpisodesSpan>
                 <EpisodesTextContainer>
-                  <SubText>Number of Seasons: </SubText>
-                  <p>{itemData.number_of_seasons}</p>
+                  <SubText>First Air Date</SubText>
+                  <p>{formatDate(itemData.first_air_date)}</p>
                 </EpisodesTextContainer>
                 <EpisodesTextContainer>
                   <SubText>Last Air Date</SubText>
@@ -129,6 +148,18 @@ const ItemPage = () => {
               </EpisodesSpan>
             </EpisodesInfoContainer>
           )}
+          <SimilarContainer>
+            <h1>See more content like this</h1>
+            <PostersContainers>
+              {similar &&
+                similar.map((item, index) => {
+                  if (index < 8)
+                    return (
+                      <SimilarPosters item={item} key={index} similar={true} />
+                    );
+                })}
+            </PostersContainers>
+          </SimilarContainer>
           <TrailerInfosContainer>
             <h1>Videos</h1>
             <TrailerContainer>

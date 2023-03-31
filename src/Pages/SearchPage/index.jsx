@@ -1,7 +1,8 @@
 import { Star } from "phosphor-react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import api from "../../api";import { Container, HeaderContainer, HeaderOrderButton, HeaderTitle, ItemContainer, ItemContainerLink, ItemCover, ItemRatingContainer, ItemRatingText, ItemsCOntainer, ItemTitle } from "./styles";
+import api from "../../api";import { Container, HeaderContainer, HeaderOrderButton, HeaderTitle, ItemsCOntainer } from "./styles";
+import { Poster } from "../../Components/Poster";
 
 const SearchPage = () => {
 
@@ -25,16 +26,7 @@ const SearchPage = () => {
             {
                 responseData && responseData.map((item, index) => {
                     return (
-                        <ItemContainerLink href={item.media_type === 'tv' ? `/tv/${item.id}` : `/movie/${item.id}`} key={index}>
-                            <ItemRatingContainer>
-                                <Star weight="fill" />
-                                <ItemRatingText>{item.vote_average.toFixed(1)}</ItemRatingText>
-                            </ItemRatingContainer>
-                            {
-                                item.poster_path ? <ItemCover src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} /> : <></>
-                            }
-                            <ItemTitle>{item.title || item.name}</ItemTitle>
-                        </ItemContainerLink>
+                        <Poster item={item} key={index} />
                     )
                 })
             }
