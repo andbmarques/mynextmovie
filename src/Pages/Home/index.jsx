@@ -16,7 +16,6 @@ const Home = () => {
         .then(result => {
             if (result) setTrendingsData(result.data)
         })
-        .then(() => console.log(trendingsData.results))
     }, [show]);
 
     return (

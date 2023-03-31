@@ -1,7 +1,7 @@
 import { Star } from "phosphor-react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import api from "../../api";import { Container, HeaderContainer, HeaderOrderButton, HeaderTitle, ItemsCOntainer } from "./styles";
+import api from "../../api";import { Container, HeaderContainer, HeaderTitle, ItemsCOntainer } from "./styles";
 import { Poster } from "../../Components/Poster";
 
 const SearchPage = () => {
